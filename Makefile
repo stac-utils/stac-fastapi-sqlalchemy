@@ -27,7 +27,7 @@ docker-shell:
 
 .PHONY: test
 test: run-joplin
-	$(run_container) /bin/bash -c 'export && ./scripts/wait-for-it.sh database:5432 && cd /app/stac_fastapi/sqlalchemy/tests/ && pytest -vvv'
+	$(run_container) /bin/bash -c 'export && ./scripts/wait-for-it.sh database:5432 && pytest -vvv'
 
 
 .PHONY: run-database
