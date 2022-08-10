@@ -10,11 +10,7 @@ COPY . /opt/src
 
 WORKDIR /opt/src
 
-RUN python -m pip install \
-    stac_fastapi/api \
-    stac_fastapi/types \
-    stac_fastapi/extensions \
-    stac_fastapi/sqlalchemy
+RUN python -m pip install .
 
 CMD ["pdocs", \
      "as_markdown", \
@@ -22,4 +18,4 @@ CMD ["pdocs", \
      "docs/api/", \
      "--exclude_source", \
      "--overwrite", \
-     "stac_fastapi"]
+     "stac_fastapi.sqlalchemy"]

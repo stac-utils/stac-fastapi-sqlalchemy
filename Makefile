@@ -40,10 +40,16 @@ run-joplin:
 
 .PHONY: docs-image
 docs-image:
-	docker-compose -f docker-compose.docs.yml \
-		build
+	docker build . -f Dockerfile.docs -t stac-fastapi-sqlalchemy-docs:latest
 
 .PHONY: docs
 docs: docs-image
-	docker-compose -f docker-compose.docs.yml \
-		run docs
+	docker run --rm \
+		-v ${CURDIR}/:/opt/src \
+		-e POSTGRES_USER=username \
+		-e POSTGRES_PASS=password \
+		-e POSTGRES_DBNAME=postgis \
+		-e POSTGRES_HOST_READER=database \
+		-e POSTGRES_HOST_WRITER=database \
+		-e POSTGRES_PORT=5432 \
+		stac-fastapi-sqlalchemy-docs:latest
