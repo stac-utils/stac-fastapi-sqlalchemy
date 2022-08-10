@@ -27,6 +27,7 @@ extra_reqs = {
         "pytest-cov",
         "pre-commit",
         "requests",
+        "pystac[validation]==1.*",
     ],
     "docs": ["mkdocs", "mkdocs-material", "pdocs"],
     "server": ["uvicorn[standard]==0.17.0"],
