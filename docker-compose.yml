@@ -58,7 +58,7 @@ services:
       - ./stac_fastapi:/app/stac_fastapi
       - ./scripts:/app/scripts
     command: >
-      bash -c "./scripts/wait-for-it.sh stac-fastapi:8081 && cd stac_fastapi/sqlalchemy && alembic upgrade head && python /app/scripts/ingest_joplin.py http://stac-fastapi:8081"
+      bash -c "./scripts/wait-for-it.sh stac-fastapi:8081 && alembic upgrade head && python /app/scripts/ingest_joplin.py http://stac-fastapi:8081"
     depends_on:
       - database
       - stac-fastapi

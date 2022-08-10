@@ -16,4 +16,4 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install -e ./stac_fastapi/sqlalchemy[dev,server]
+RUN pip install -e .[dev,server]
