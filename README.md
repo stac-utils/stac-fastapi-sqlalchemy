@@ -3,62 +3,32 @@
   <p align="center">FastAPI implemention of the STAC API spec.</p>
 </p>
 <p align="center">
-  <a href="https://github.com/stac-utils/stac-fastapi/actions?query=workflow%3Acicd" target="_blank">
-      <img src="https://github.com/stac-utils/stac-fastapi/workflows/stac-fastapi/badge.svg" alt="Test">
+  <a href="https://github.com/stac-utils/stac-fastapi-sqlalchemy/actions?query=workflow%3Acicd" target="_blank">
+      <img src="https://github.com/stac-utils/stac-fastapi-sqlalchemy/workflows/stac-fastapi-sqlalchemy/badge.svg" alt="Test">
   </a>
-  <a href="https://pypi.org/project/stac-fastapi" target="_blank">
-      <img src="https://img.shields.io/pypi/v/stac-fastapi.api?color=%2334D058&label=pypi%20package" alt="Package version">
+  <a href="https://pypi.org/project/stac-fastapi-sqlalchemy" target="_blank">
+      <img src="https://img.shields.io/pypi/v/stac-fastapi-sqlalchemy.api?color=%2334D058&label=pypi%20package" alt="Package version">
   </a>
-  <a href="https://github.com/stac-utils/stac-fastapi/blob/master/LICENSE" target="_blank">
-      <img src="https://img.shields.io/github/license/stac-utils/stac-fastapi.svg" alt="License">
+  <a href="https://github.com/stac-utils/stac-fastapi-sqlalchemy/blob/master/LICENSE" target="_blank">
+      <img src="https://img.shields.io/github/license/stac-utils/stac-fastapi.-sqlalchemysvg" alt="License">
   </a>
 </p>
 
 ---
 
-**Documentation**: [https://stac-utils.github.io/stac-fastapi/](https://stac-utils.github.io/stac-fastapi/)
+**Documentation**: [https://stac-utils.github.io/stac-fastapi-sqlalchemy/](https://stac-utils.github.io/stac-fastapi-sqlalchemy/)
 
-**Source Code**: [https://github.com/stac-utils/stac-fastapi](https://github.com/stac-utils/stac-fastapi)
+**Source Code**: [https://github.com/stac-utils/stac-fastapi-sqlalchemy](https://github.com/stac-utils/stac-fastapi-sqlalchemy)
 
 ---
 
-Python library for building a STAC compliant FastAPI application.  The project is split up into several namespace
-packages:
+Sqlalchemy/postgis backend for [stac-fastapi](https://github.com/stac-utils/stac-fastapi).
 
-- **stac_fastapi.api**: An API layer which enforces the [stac-api-spec](https://github.com/radiantearth/stac-api-spec).
-- **stac_fastapi.extensions**: Abstract base classes for [STAC API extensions](https://github.com/radiantearth/stac-api-spec/blob/master/extensions.md) and third-party extensions.
-- **stac_fastapi.types**: Shared types and abstract base classes used by the library.
-
-#### Backends
-- **stac_fastapi.sqlalchemy**: Postgres backend implementation with sqlalchemy.
-- **stac_fastapi.pgstac**: Postgres backend implementation with [PGStac](https://github.com/stac-utils/pgstac).
-
-`stac-fastapi` was initially developed by [arturo-ai](https://github.com/arturo-ai).
 
 ## Installation
 
 ```bash
-# Install from pypi.org
-pip install stac-fastapi.api stac-fastapi.types stac-fastapi.extensions
-
-# Install a backend of your choice
-pip install stac-fastapi.sqlalchemy
-# or
-pip install stac-fastapi.pgstac
-
-#/////////////////////
-# Install from sources
-
-git clone https://github.com/stac-utils/stac-fastapi.git && cd stac-fastapi
-pip install \
-  -e stac_fastapi/api \
-  -e stac_fastapi/types \
-  -e stac_fastapi/extensions
-
-# Install a backend of your choice
-pip install -e stac_fastapi/sqlalchemy
-# or
-pip install -e stac_fastapi/pgstac
+pip install stac-fastapi.sqlalchey
 ```
 
 ## Local Development
@@ -68,18 +38,6 @@ Use docker-compose via make to start the application, migrate the database, and 
 make image
 make docker-run-all
 ```
-
-- The SQLAlchemy backend app will be available on <http://localhost:8081>.
-- The PGStac backend app will be available on <http://localhost:8082>.
-
-You can also launch only one of the applications with either of these commands:
-
-```shell
-make docker-run-pgstac
-make docker-run-sqlalchemy
-```
-
-The application will be started on <http://localhost:8080>.
 
 By default, the apps are run with uvicorn hot-reloading enabled. This can be turned off by changing the value
 of the `RELOAD` env var in docker-compose.yml to `false`.
@@ -111,22 +69,10 @@ To run tests for both the pgstac and sqlalchemy backends, execute:
 make test
 ```
 
-To only run pgstac backend tests:
-
-```shell
-make test-pgstac
-```
-
-To only run sqlalchemy backend tests:
-
-```shell
-make test-sqlalchemy
-```
 
 Run individual tests by running pytest within a docker container:
 
 ```shell
-make docker-shell-pgstac # or docker-shell-sqlalchemy
-$ pip install -e stac_fastapi/pgstac[dev]
-$ pytest -v stac_fastapi/pgstac/tests/api/test_api.py 
+make docker-shell
+pytest -v tests/api/test_api::test_app_search_response
 ```
