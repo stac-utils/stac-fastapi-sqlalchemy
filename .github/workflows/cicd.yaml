@@ -1,4 +1,4 @@
-name: stac-fastapi
+name: stac-fastapi-sqlalchemy
 on:
   push:
     branches: [ main ]
