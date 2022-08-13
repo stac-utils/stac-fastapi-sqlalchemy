@@ -4,7 +4,7 @@ site_description: SQLAlchemy backend for stac-fastapi.
 # Repository
 repo_name: 'stac-utils/stac-fastapi-sqlalchemy'
 repo_url: 'https://github.com/stac-utils/stac-fastapi-sqlalchemy'
-edit_uri: 'blob/master/docs/src/'
+edit_uri: 'blob/main/docs/src/'
 
 
 # Social links
