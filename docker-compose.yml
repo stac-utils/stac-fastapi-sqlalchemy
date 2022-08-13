@@ -1,7 +1,7 @@
 version: '3'
 services:
-  stac-fastapi:
-    container_name: stac-fastapi
+  stac-fastapi-sqlalchemy:
+    container_name: stac-fastapi-sqlalchemy
     image: stac-utils/stac-fastapi
     build:
       context: .
@@ -58,11 +58,11 @@ services:
       - ./stac_fastapi:/app/stac_fastapi
       - ./scripts:/app/scripts
     command: >
-      bash -c "./scripts/wait-for-it.sh stac-fastapi:8081 && alembic upgrade head && python /app/scripts/ingest_joplin.py http://stac-fastapi:8081"
+      bash -c "./scripts/wait-for-it.sh stac-fastapi-sqlalchemy:8081 && alembic upgrade head && python /app/scripts/ingest_joplin.py http://stac-fastapi-sqlalchemy:8081"
     depends_on:
       - database
-      - stac-fastapi
+      - stac-fastapi-sqlalchemy
 
 networks:
   default:
-    name: stac-fastapi-network
+    name: stac-fastapi-sqlalchemy-network
