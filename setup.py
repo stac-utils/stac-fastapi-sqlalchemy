@@ -16,7 +16,7 @@ install_requires = [
     "geoalchemy2<0.8.0",
     "sqlalchemy==1.3.23",
     "shapely",
-    "psycopg2-binary",
+    "psycopg2",
     "alembic",
     "fastapi-utils",
 ]

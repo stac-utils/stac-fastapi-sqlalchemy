@@ -4,7 +4,7 @@ FROM python:3.8-slim as base
 # need the following packages in order to build
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get install -y build-essential git && \
+    apt-get install -y build-essential git postgresql libpq-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
