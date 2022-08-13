@@ -27,6 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo apt-get install -y postgresql libpq-dev
           python -m pip install --upgrade pip
           python -m pip install -e .
           python -m pip install mkdocs mkdocs-material pdocs
@@ -37,7 +38,7 @@ jobs:
             --output_dir docs/api/ \
             --exclude_source \
             --overwrite \
-            stac_fastapi.sqlalchemy
+            stac_fastapi
         env:
           POSTGRES_USER: username
           POSTGRES_PASS: password
