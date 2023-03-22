@@ -23,10 +23,14 @@ install_requires = [
 
 extra_reqs = {
     "dev": [
+        "orjson",
+        "pystac[validation]",
         "pytest",
         "pytest-cov",
         "pre-commit",
         "requests",
+        "twine",
+        "wheel",
     ],
     "docs": ["mkdocs", "mkdocs-material", "pdocs"],
     "server": ["uvicorn[standard]==0.19.0"],
