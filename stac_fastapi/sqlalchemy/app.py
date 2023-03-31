@@ -11,6 +11,7 @@ from stac_fastapi.extensions.core import (
     TransactionExtension,
 )
 from stac_fastapi.extensions.third_party import BulkTransactionExtension
+
 from stac_fastapi.sqlalchemy.config import SqlalchemySettings
 from stac_fastapi.sqlalchemy.core import CoreCrudClient
 from stac_fastapi.sqlalchemy.extensions import QueryExtension

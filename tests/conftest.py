@@ -3,8 +3,6 @@ import os
 from typing import Callable, Dict
 
 import pytest
-from starlette.testclient import TestClient
-
 from stac_fastapi.api.app import StacApi
 from stac_fastapi.api.models import create_request_model
 from stac_fastapi.extensions.core import (
@@ -14,6 +12,10 @@ from stac_fastapi.extensions.core import (
     TokenPaginationExtension,
     TransactionExtension,
 )
+from stac_fastapi.types.config import Settings
+from stac_fastapi.types.search import BaseSearchGetRequest, BaseSearchPostRequest
+from starlette.testclient import TestClient
+
 from stac_fastapi.sqlalchemy.config import SqlalchemySettings
 from stac_fastapi.sqlalchemy.core import CoreCrudClient
 from stac_fastapi.sqlalchemy.extensions import QueryExtension
@@ -23,8 +25,6 @@ from stac_fastapi.sqlalchemy.transactions import (
     BulkTransactionsClient,
     TransactionsClient,
 )
-from stac_fastapi.types.config import Settings
-from stac_fastapi.types.search import BaseSearchGetRequest, BaseSearchPostRequest
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 

@@ -6,7 +6,6 @@ Create Date: 2021-11-23 10:14:17.974565
 
 """
 from alembic import op
-
 from stac_fastapi.sqlalchemy.models.database import GeojsonGeometry
 
 # revision identifiers, used by Alembic.
