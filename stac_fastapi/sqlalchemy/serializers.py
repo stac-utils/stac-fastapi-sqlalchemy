@@ -6,12 +6,12 @@ from typing import TypedDict
 import attr
 import geoalchemy2 as ga
 from pystac.utils import datetime_to_str
-
-from stac_fastapi.sqlalchemy.models import database
 from stac_fastapi.types import stac as stac_types
 from stac_fastapi.types.config import Settings
 from stac_fastapi.types.links import CollectionLinks, ItemLinks, resolve_links
 from stac_fastapi.types.rfc3339 import now_to_rfc3339_str, rfc3339_str_to_datetime
+
+from stac_fastapi.sqlalchemy.models import database
 
 
 @attr.s  # type:ignore
