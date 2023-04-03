@@ -1,0 +1,1815 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="STAC FastAPI - sqlalchemy backend.">
+      
+      
+      
+      
+        <link rel="prev" href="../../extensions/query/">
+      
+      
+        <link rel="next" href="../">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.5">
+    
+    
+      
+        <title>database - stac-fastapi-sqlalchemy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.7a7fce14.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Nunito Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-stac_fastapisqlalchemymodelsdatabase" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="stac-fastapi-sqlalchemy" class="md-header__button md-logo" aria-label="stac-fastapi-sqlalchemy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            stac-fastapi-sqlalchemy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              database
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/stac-utils/stac-fastapi-sqlalchemy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    stac-utils/stac-fastapi-sqlalchemy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="stac-fastapi-sqlalchemy" class="md-nav__button md-logo" aria-label="stac-fastapi-sqlalchemy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"/></svg>
+
+    </a>
+    stac-fastapi-sqlalchemy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/stac-utils/stac-fastapi-sqlalchemy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    stac-utils/stac-fastapi-sqlalchemy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+          stac_fastapi.sqlalchemy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          stac_fastapi.sqlalchemy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+          extensions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          extensions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/" class="md-nav__link">
+        index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/query/" class="md-nav__link">
+        query
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+          models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          database
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        database
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basemodel" class="md-nav__link">
+    BaseModel
+  </a>
+  
+    <nav class="md-nav" aria-label="BaseModel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descendants" class="md-nav__link">
+    Descendants
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collection" class="md-nav__link">
+    Collection
+  </a>
+  
+    <nav class="md-nav" aria-label="Collection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_1" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geojsongeometry" class="md-nav__link">
+    GeojsonGeometry
+  </a>
+  
+    <nav class="md-nav" aria-label="GeojsonGeometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_1" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_2" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-methods" class="md-nav__link">
+    Static methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check_ctor_args" class="md-nav__link">
+    check_ctor_args
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adapt" class="md-nav__link">
+    adapt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind_expression" class="md-nav__link">
+    bind_expression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind_processor" class="md-nav__link">
+    bind_processor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coerce_compared_value" class="md-nav__link">
+    coerce_compared_value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column_expression" class="md-nav__link">
+    column_expression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_against_backend" class="md-nav__link">
+    compare_against_backend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_values" class="md-nav__link">
+    compare_values
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compile" class="md-nav__link">
+    compile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy" class="md-nav__link">
+    copy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy_value" class="md-nav__link">
+    copy_value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dialect_impl" class="md-nav__link">
+    dialect_impl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluates_none" class="md-nav__link">
+    evaluates_none
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_col_spec" class="md-nav__link">
+    get_col_spec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_dbapi_type" class="md-nav__link">
+    get_dbapi_type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal_processor" class="md-nav__link">
+    literal_processor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result_processor" class="md-nav__link">
+    result_processor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with_variant" class="md-nav__link">
+    with_variant
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#item" class="md-nav__link">
+    Item
+  </a>
+  
+    <nav class="md-nav" aria-label="Item">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_2" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_3" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-methods_1" class="md-nav__link">
+    Static methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_field" class="md-nav__link">
+    get_field
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paginationtoken" class="md-nav__link">
+    PaginationToken
+  </a>
+  
+    <nav class="md-nav" aria-label="PaginationToken">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_3" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_4" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        search
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../app/" class="md-nav__link">
+        app
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/" class="md-nav__link">
+        config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/" class="md-nav__link">
+        core
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../serializers/" class="md-nav__link">
+        serializers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session/" class="md-nav__link">
+        session
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tokens/" class="md-nav__link">
+        tokens
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transactions/" class="md-nav__link">
+        transactions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../version/" class="md-nav__link">
+        version
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../contributing/" class="md-nav__link">
+        Development - Contributing
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../release-notes/" class="md-nav__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basemodel" class="md-nav__link">
+    BaseModel
+  </a>
+  
+    <nav class="md-nav" aria-label="BaseModel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descendants" class="md-nav__link">
+    Descendants
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collection" class="md-nav__link">
+    Collection
+  </a>
+  
+    <nav class="md-nav" aria-label="Collection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_1" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geojsongeometry" class="md-nav__link">
+    GeojsonGeometry
+  </a>
+  
+    <nav class="md-nav" aria-label="GeojsonGeometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_1" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_2" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-methods" class="md-nav__link">
+    Static methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check_ctor_args" class="md-nav__link">
+    check_ctor_args
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adapt" class="md-nav__link">
+    adapt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind_expression" class="md-nav__link">
+    bind_expression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind_processor" class="md-nav__link">
+    bind_processor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coerce_compared_value" class="md-nav__link">
+    coerce_compared_value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column_expression" class="md-nav__link">
+    column_expression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_against_backend" class="md-nav__link">
+    compare_against_backend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_values" class="md-nav__link">
+    compare_values
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compile" class="md-nav__link">
+    compile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy" class="md-nav__link">
+    copy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy_value" class="md-nav__link">
+    copy_value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dialect_impl" class="md-nav__link">
+    dialect_impl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluates_none" class="md-nav__link">
+    evaluates_none
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_col_spec" class="md-nav__link">
+    get_col_spec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_dbapi_type" class="md-nav__link">
+    get_dbapi_type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal_processor" class="md-nav__link">
+    literal_processor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result_processor" class="md-nav__link">
+    result_processor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with_variant" class="md-nav__link">
+    with_variant
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#item" class="md-nav__link">
+    Item
+  </a>
+  
+    <nav class="md-nav" aria-label="Item">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_2" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_3" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-methods_1" class="md-nav__link">
+    Static methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_field" class="md-nav__link">
+    get_field
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paginationtoken" class="md-nav__link">
+    PaginationToken
+  </a>
+  
+    <nav class="md-nav" aria-label="PaginationToken">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_3" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_4" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="module-stac_fastapisqlalchemymodelsdatabase">Module stac_fastapi.sqlalchemy.models.database<a class="headerlink" href="#module-stac_fastapisqlalchemymodelsdatabase" title="Permanent link">&para;</a></h1>
+<p>SQLAlchemy ORM models.</p>
+<h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
+<h3 id="basemodel">BaseModel<a class="headerlink" href="#basemodel" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>The base class of the class hierarchy.</p>
+<p>When called, it accepts no arguments and returns a new featureless
+instance that has no instance attributes and cannot be given any.</p>
+<h4 id="descendants">Descendants<a class="headerlink" href="#descendants" title="Permanent link">&para;</a></h4>
+<ul>
+<li>stac_fastapi.sqlalchemy.models.database.Collection</li>
+<li>stac_fastapi.sqlalchemy.models.database.Item</li>
+<li>stac_fastapi.sqlalchemy.models.database.PaginationToken</li>
+</ul>
+<h4 id="class-variables">Class variables<a class="headerlink" href="#class-variables" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">metadata</span>
+</code></pre></div>
+<h3 id="collection">Collection<a class="headerlink" href="#collection" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Collection</span><span class="p">(</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Collection orm model.</p>
+<h4 id="ancestors-in-mro">Ancestors (in MRO)<a class="headerlink" href="#ancestors-in-mro" title="Permanent link">&para;</a></h4>
+<ul>
+<li>stac_fastapi.sqlalchemy.models.database.Base</li>
+</ul>
+<h4 id="class-variables_1">Class variables<a class="headerlink" href="#class-variables_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">children</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">description</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">extent</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">keywords</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">license</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">links</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">metadata</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">providers</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">stac_extensions</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">stac_version</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">summaries</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">title</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">type</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">version</span>
+</code></pre></div>
+<h3 id="geojsongeometry">GeojsonGeometry<a class="headerlink" href="#geojsongeometry" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">GeojsonGeometry</span><span class="p">(</span>
+    <span class="n">geometry_type</span><span class="o">=</span><span class="s1">&#39;GEOMETRY&#39;</span><span class="p">,</span>
+    <span class="n">srid</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">spatial_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">use_N_D_index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">management</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">use_typmod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">from_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Custom geoalchemy type which returns GeoJSON.</p>
+<h4 id="ancestors-in-mro_1">Ancestors (in MRO)<a class="headerlink" href="#ancestors-in-mro_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>geoalchemy2.types.Geometry</li>
+<li>geoalchemy2.types._GISType</li>
+<li>sqlalchemy.sql.type_api.UserDefinedType</li>
+<li>sqlalchemy.sql.type_api.TypeEngine</li>
+<li>sqlalchemy.sql.visitors.Visitable</li>
+</ul>
+<h4 id="class-variables_2">Class variables<a class="headerlink" href="#class-variables_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">Comparator</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">ElementType</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">as_binary</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">cache_ok</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">comparator_factory</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">ensure_kwarg</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">from_text</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">hashable</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">name</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">should_evaluate_none</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">sort_key_function</span>
+</code></pre></div>
+<h4 id="static-methods">Static methods<a class="headerlink" href="#static-methods" title="Permanent link">&para;</a></h4>
+<h4 id="check_ctor_args">check_ctor_args<a class="headerlink" href="#check_ctor_args" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">check_ctor_args</span><span class="p">(</span>
+    <span class="n">geometry_type</span><span class="p">,</span>
+    <span class="n">srid</span><span class="p">,</span>
+    <span class="n">dimension</span><span class="p">,</span>
+    <span class="n">management</span><span class="p">,</span>
+    <span class="n">use_typmod</span><span class="p">,</span>
+    <span class="n">nullable</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="instance-variables">Instance variables<a class="headerlink" href="#instance-variables" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">python_type</span>
+</code></pre></div>
+<p>Return the Python type object expected to be returned</p>
+<p>by instances of this type, if known.</p>
+<p>Basically, for those types which enforce a return type,
+or are known across the board to do such for all common
+DBAPIs (like <code>int</code> for example), will return that type.</p>
+<p>If a return type is not defined, raises
+<code>NotImplementedError</code>.</p>
+<p>Note that any type also accommodates NULL in SQL which
+means you can also get back <code>None</code> from any type
+in practice.</p>
+<h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
+<h4 id="adapt">adapt<a class="headerlink" href="#adapt" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="bp">cls</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kw</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Produce an "adapted" form of this type, given an "impl" class</p>
+<p>to work with.</p>
+<p>This method is used internally to associate generic
+types with "implementation" types that are specific to a particular
+dialect.</p>
+<h4 id="bind_expression">bind_expression<a class="headerlink" href="#bind_expression" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">bind_expression</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">bindvalue</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Specific bind_expression that automatically adds a conversion function</p>
+<h4 id="bind_processor">bind_processor<a class="headerlink" href="#bind_processor" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">bind_processor</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">dialect</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Specific bind_processor that automatically process spatial elements</p>
+<h4 id="coerce_compared_value">coerce_compared_value<a class="headerlink" href="#coerce_compared_value" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">coerce_compared_value</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">op</span><span class="p">,</span>
+    <span class="n">value</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Suggest a type for a 'coerced' Python value in an expression.</p>
+<p>Default behavior for :class:<code>.UserDefinedType</code> is the
+same as that of :class:<code>.TypeDecorator</code>; by default it returns
+<code>self</code>, assuming the compared value should be coerced into
+the same type as this one.  See</p>
+<h4 id="column_expression">column_expression<a class="headerlink" href="#column_expression" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">column_expression</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">col</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Specific column_expression that automatically adds a conversion function</p>
+<h4 id="compare_against_backend">compare_against_backend<a class="headerlink" href="#compare_against_backend" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compare_against_backend</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">dialect</span><span class="p">,</span>
+    <span class="n">conn_type</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Compare this type against the given backend type.</p>
+<p>This function is currently not implemented for SQLAlchemy
+types, and for all built in types will return <code>None</code>.  However,
+it can be implemented by a user-defined type
+where it can be consumed by schema comparison tools such as
+Alembic autogenerate.</p>
+<p>A future release of SQLAlchemy will potentially implement this method
+for builtin types as well.</p>
+<p>The function should return True if this type is equivalent to the
+given type; the type is typically reflected from the database
+so should be database specific.  The dialect in use is also
+passed.   It can also return False to assert that the type is
+not equivalent.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dialect</td>
+<td>None</td>
+<td>a :class:<code>.Dialect</code> that is involved in the comparison.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>conn_type</td>
+<td>None</td>
+<td>the type object reflected from the backend.<br>.. versionadded:: 1.0.3</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h4 id="compare_values">compare_values<a class="headerlink" href="#compare_values" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compare_values</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">y</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Compare two values for equality.</p>
+<h4 id="compile">compile<a class="headerlink" href="#compile" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compile</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">dialect</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Produce a string-compiled form of this :class:<code>.TypeEngine</code>.</p>
+<p>When called with no arguments, uses a "default" dialect
+to produce a string result.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dialect</td>
+<td>None</td>
+<td>a :class:<code>.Dialect</code> instance.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h4 id="copy">copy<a class="headerlink" href="#copy" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">copy</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kw</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="copy_value">copy_value<a class="headerlink" href="#copy_value" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">copy_value</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">value</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="dialect_impl">dialect_impl<a class="headerlink" href="#dialect_impl" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">dialect_impl</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">dialect</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Return a dialect-specific implementation for this</p>
+<h4 id="evaluates_none">evaluates_none<a class="headerlink" href="#evaluates_none" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">evaluates_none</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Return a copy of this type which has the :attr:<code>.should_evaluate_none</code></p>
+<p>flag set to True.</p>
+<p>E.g.::</p>
+<div class="codehilite"><pre><span></span><code>    Table(
+        &#39;some_table&#39;, metadata,
+        Column(
+            String(50).evaluates_none(),
+            nullable=True,
+            server_default=&#39;no value&#39;)
+    )
+</code></pre></div>
+
+<p>The ORM uses this flag to indicate that a positive value of <code>None</code>
+is passed to the column in an INSERT statement, rather than omitting
+the column from the INSERT statement which has the effect of firing
+off column-level defaults.   It also allows for types which have
+special behavior associated with the Python None value to indicate
+that the value doesn't necessarily translate into SQL NULL; a
+prime example of this is a JSON type which may wish to persist the
+JSON value <code>'null'</code>.</p>
+<p>In all cases, the actual NULL SQL value can be always be
+persisted in any column by using
+the :obj:<code>_expression.null</code> SQL construct in an INSERT statement
+or associated with an ORM-mapped attribute.</p>
+<p>.. note::</p>
+<div class="codehilite"><pre><span></span><code>The &quot;evaluates none&quot; flag does **not** apply to a value
+of ``None`` passed to :paramref:`_schema.Column.default` or
+:paramref:`_schema.Column.server_default`; in these cases,
+``None``
+still means &quot;no default&quot;.
+</code></pre></div>
+
+<p>.. versionadded:: 1.1</p>
+<p>.. seealso::</p>
+<div class="codehilite"><pre><span></span><code>:ref:`session_forcing_null` - in the ORM documentation
+
+:paramref:`.postgresql.JSON.none_as_null` - PostgreSQL JSON
+interaction with this flag.
+
+:attr:`.TypeEngine.should_evaluate_none` - class-level flag
+</code></pre></div>
+
+<h4 id="get_col_spec">get_col_spec<a class="headerlink" href="#get_col_spec" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_col_spec</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="get_dbapi_type">get_dbapi_type<a class="headerlink" href="#get_dbapi_type" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_dbapi_type</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">dbapi</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Return the corresponding type object from the underlying DB-API, if</p>
+<p>any.</p>
+<p>This can be useful for calling <code>setinputsizes()</code>, for example.</p>
+<h4 id="literal_processor">literal_processor<a class="headerlink" href="#literal_processor" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">literal_processor</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">dialect</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Return a conversion function for processing literal values that are</p>
+<p>to be rendered directly without using binds.</p>
+<p>This function is used when the compiler makes use of the
+"literal_binds" flag, typically used in DDL generation as well
+as in certain scenarios where backends don't accept bound parameters.</p>
+<p>.. versionadded:: 0.9.0</p>
+<h4 id="result_processor">result_processor<a class="headerlink" href="#result_processor" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">result_processor</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">dialect</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">coltype</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Override default processer to return GeoJSON.</p>
+<h4 id="with_variant">with_variant<a class="headerlink" href="#with_variant" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">with_variant</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">type_</span><span class="p">,</span>
+    <span class="n">dialect_name</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Produce a new type object that will utilize the given</p>
+<p>type when applied to the dialect of the given name.</p>
+<p>e.g.::</p>
+<div class="codehilite"><pre><span></span><code>from sqlalchemy.types import String
+from sqlalchemy.dialects import mysql
+
+s = String()
+
+s = s.with_variant(mysql.VARCHAR(collation=&#39;foo&#39;), &#39;mysql&#39;)
+</code></pre></div>
+
+<p>The construction of :meth:<code>.TypeEngine.with_variant</code> is always
+from the "fallback" type to that which is dialect specific.
+The returned type is an instance of :class:<code>.Variant</code>, which
+itself provides a :meth:<code>.Variant.with_variant</code>
+that can be called repeatedly.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type_</td>
+<td>None</td>
+<td>a :class:<code>.TypeEngine</code> that will be selected<br>as a variant from the originating type, when a dialect<br>of the given name is in use.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>dialect_name</td>
+<td>None</td>
+<td>base name of the dialect which uses<br>this type. (i.e. <code>'postgresql'</code>, <code>'mysql'</code>, etc.)</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h3 id="item">Item<a class="headerlink" href="#item" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Item</span><span class="p">(</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Item orm model.</p>
+<h4 id="ancestors-in-mro_2">Ancestors (in MRO)<a class="headerlink" href="#ancestors-in-mro_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>stac_fastapi.sqlalchemy.models.database.Base</li>
+</ul>
+<h4 id="class-variables_3">Class variables<a class="headerlink" href="#class-variables_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">assets</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">bbox</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">collection_id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">datetime</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">geometry</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">links</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">metadata</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">parent_collection</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">properties</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">stac_extensions</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">stac_version</span>
+</code></pre></div>
+<h4 id="static-methods_1">Static methods<a class="headerlink" href="#static-methods_1" title="Permanent link">&para;</a></h4>
+<h4 id="get_field">get_field<a class="headerlink" href="#get_field" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_field</span><span class="p">(</span>
+    <span class="n">field_name</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Get a model field.</p>
+<h3 id="paginationtoken">PaginationToken<a class="headerlink" href="#paginationtoken" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PaginationToken</span><span class="p">(</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Pagination orm model.</p>
+<h4 id="ancestors-in-mro_3">Ancestors (in MRO)<a class="headerlink" href="#ancestors-in-mro_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>stac_fastapi.sqlalchemy.models.database.Base</li>
+</ul>
+<h4 id="class-variables_4">Class variables<a class="headerlink" href="#class-variables_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nb">id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">keyset</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">metadata</span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/stac-utils" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": [], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.407015b8.min.js"></script>
+      
+    
+  </body>
+</html>
