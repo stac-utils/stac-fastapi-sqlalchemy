@@ -23,6 +23,7 @@ install_requires = [
 
 extra_reqs = {
     "dev": [
+        "httpx",  # for starlette's test client
         "orjson",
         "pystac[validation]",
         "pytest",
