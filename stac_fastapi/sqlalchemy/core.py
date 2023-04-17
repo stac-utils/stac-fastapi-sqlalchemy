@@ -310,7 +310,7 @@ class CoreCrudClient(PaginationTokenClient, BaseCoreClient):
                 if link["body"] and link["merge"]:
                     query_params.update(link["body"])
                 link["method"] = "GET"
-                link["href"] = f"{link['body']}?{urlencode(query_params)}"
+                link["href"] = f"{link['href']}?{urlencode(query_params)}"
                 link["body"] = None
                 link["merge"] = False
                 page_links.append(link)
@@ -422,9 +422,9 @@ class CoreCrudClient(PaginationTokenClient, BaseCoreClient):
 
                 # Query fields
                 if search_request.query:
-                    for (field_name, expr) in search_request.query.items():
+                    for field_name, expr in search_request.query.items():
                         field = self.item_table.get_field(field_name)
-                        for (op, value) in expr.items():
+                        for op, value in expr.items():
                             if op == Operator.gte:
                                 query = query.filter(operator.ge(field, value))
                             elif op == Operator.lte:
