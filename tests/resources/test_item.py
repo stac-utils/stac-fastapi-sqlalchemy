@@ -707,12 +707,10 @@ def test_item_search_pagination(app_client, load_test_data):
     resp = app_client.get(links[0]["href"])
     resp_json = resp.json()
     links = resp_json["links"]
-    nextLink = [link for link in links if link["rel"] == "next"]
-    prevLink = [link for link in links if link["rel"] == "previous"]
-    assert len(nextLink) == 1
-    assert nextLink[0]["href"].startswith("http://testserver/search?")
-    assert len(prevLink) == 1
-    assert prevLink[0]["href"].startswith("http://testserver/search?")
+    next_link = next(link for link in links if link["rel"] == "next")
+    prev_link = next(link for link in links if link["rel"] == "previous")
+    assert next_link["href"].startswith("http://testserver/search?")
+    assert prev_link["href"].startswith("http://testserver/search?")
 
 
 def test_get_missing_item_collection(app_client):
