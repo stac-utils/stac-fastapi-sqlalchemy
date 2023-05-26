@@ -701,9 +701,8 @@ def test_item_search_pagination(app_client, load_test_data):
 
     resp_json = resp.json()
     links = resp_json["links"]
-    nextLink = [link for link in links if link["rel"] == "next"]
-    assert len(nextLink) == 1
-    assert nextLink[0]["href"].startswith("http://testserver/search?")
+    next_link = next(link for link in links if link["rel"] == "next")
+    assert next_link["href"].startswith("http://testserver/search?")
 
     resp = app_client.get(links[0]["href"])
     resp_json = resp.json()
