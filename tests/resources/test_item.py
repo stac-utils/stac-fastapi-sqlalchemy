@@ -685,6 +685,34 @@ def test_item_search_get_query_extension(app_client, load_test_data):
     )
 
 
+def test_item_search_pagination(app_client, load_test_data):
+    """Test format of pagination links on a GET search"""
+    test_item = load_test_data("test_item.json")
+    for x in range(20):
+        test_item["id"] = f"test_item_{x}"
+        resp = app_client.post(
+            f"/collections/{test_item['collection']}/items", json=test_item
+        )
+        assert resp.status_code == 200
+
+    params = {"limit": 5}
+    resp = app_client.get("/search", params=params)
+    assert resp.status_code == 200
+
+    resp_json = resp.json()
+    links = resp_json["links"]
+    next_link = next(link for link in links if link["rel"] == "next")
+    assert next_link["href"].startswith("http://testserver/search?")
+
+    resp = app_client.get(links[0]["href"])
+    resp_json = resp.json()
+    links = resp_json["links"]
+    next_link = next(link for link in links if link["rel"] == "next")
+    prev_link = next(link for link in links if link["rel"] == "previous")
+    assert next_link["href"].startswith("http://testserver/search?")
+    assert prev_link["href"].startswith("http://testserver/search?")
+
+
 def test_get_missing_item_collection(app_client):
     """Test reading a collection which does not exist"""
     resp = app_client.get("/collections/invalid-collection/items")
