@@ -48,7 +48,7 @@ mkdocs serve
 
 ## History
 
-In April of 2023, it was removed from the core **stac-fastapi** repository and moved to its current location (<http://github.com/stac-util/stac-fastapi-sqlalchemy>).
+In April of 2023, it was removed from the core **stac-fastapi** repository and moved to its current location (<http://github.com/stac-utils/stac-fastapi-sqlalchemy>).
 
 ## License
 
