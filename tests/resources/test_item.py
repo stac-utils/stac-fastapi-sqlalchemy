@@ -581,7 +581,32 @@ def test_item_search_temporal_window_get(app_client, load_test_data):
     assert resp_json["features"][0]["id"] == test_item["id"]
 
 
-def test_item_search_sort_get(app_client, load_test_data):
+def test_item_search_sort_get_asc(app_client, load_test_data):
+    """Test GET search with sorting (sort extension)"""
+    first_item = load_test_data("test_item.json")
+    item_date = rfc3339_str_to_datetime(first_item["properties"]["datetime"])
+    resp = app_client.post(
+        f"/collections/{first_item['collection']}/items", json=first_item
+    )
+    assert resp.status_code == 200
+
+    second_item = load_test_data("test_item.json")
+    second_item["id"] = "another-item"
+    another_item_date = item_date - timedelta(days=1)
+    second_item["properties"]["datetime"] = datetime_to_str(another_item_date)
+    resp = app_client.post(
+        f"/collections/{second_item['collection']}/items", json=second_item
+    )
+    assert resp.status_code == 200
+    params = {"collections": [first_item["collection"]], "sortby": "+datetime"}
+    resp = app_client.get("/search", params=params)
+    assert resp.status_code == 200
+    resp_json = resp.json()
+    assert resp_json["features"][1]["id"] == first_item["id"]
+    assert resp_json["features"][0]["id"] == second_item["id"]
+
+
+def test_item_search_sort_get_desc(app_client, load_test_data):
     """Test GET search with sorting (sort extension)"""
     first_item = load_test_data("test_item.json")
     item_date = rfc3339_str_to_datetime(first_item["properties"]["datetime"])
