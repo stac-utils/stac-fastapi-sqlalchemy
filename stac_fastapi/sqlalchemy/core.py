@@ -278,7 +278,7 @@ class CoreCrudClient(PaginationTokenClient, BaseCoreClient):
                 sort_param.append(
                     {
                         "field": sort[1:],
-                        "direction": "asc" if sort[0] == "+" else "desc",
+                        "direction": "desc" if sort[0] == "-" else "asc",
                     }
                 )
             base_args["sortby"] = sort_param
