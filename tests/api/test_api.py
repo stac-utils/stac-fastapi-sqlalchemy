@@ -225,7 +225,39 @@ def test_app_query_extension_limit_10000(
     assert resp.status_code == 200
 
 
-def test_app_sort_extension(load_test_data, app_client, postgres_transactions):
+def test_app_sort_extension_post_asc(load_test_data, app_client, postgres_transactions):
+    first_item = load_test_data("test_item.json")
+    item_date = datetime.strptime(
+        first_item["properties"]["datetime"], "%Y-%m-%dT%H:%M:%SZ"
+    )
+    postgres_transactions.create_item(
+        first_item["collection"], first_item, request=MockStarletteRequest
+    )
+
+    second_item = load_test_data("test_item.json")
+    second_item["id"] = "another-item"
+    another_item_date = item_date - timedelta(days=1)
+    second_item["properties"]["datetime"] = another_item_date.strftime(
+        "%Y-%m-%dT%H:%M:%SZ"
+    )
+    postgres_transactions.create_item(
+        second_item["collection"], second_item, request=MockStarletteRequest
+    )
+
+    params = {
+        "collections": [first_item["collection"]],
+        "sortby": [{"field": "datetime", "direction": "asc"}],
+    }
+    resp = app_client.post("/search", json=params)
+    assert resp.status_code == 200
+    resp_json = resp.json()
+    assert resp_json["features"][1]["id"] == first_item["id"]
+    assert resp_json["features"][0]["id"] == second_item["id"]
+
+
+def test_app_sort_extension_post_desc(
+    load_test_data, app_client, postgres_transactions
+):
     first_item = load_test_data("test_item.json")
     item_date = datetime.strptime(
         first_item["properties"]["datetime"], "%Y-%m-%dT%H:%M:%SZ"
